@@ -1,31 +1,36 @@
-# CMake for order-k Delaunay triangulations using CGAL.
-# Includes a commandline tool (main) and tests (test).
+cmake_minimum_required(VERSION 3.20)
+project(rhomboid LANGUAGES CXX)
 
-project (rhomboid)
+# Require C++11
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-cmake_minimum_required(VERSION 2.8.11)
-if(POLICY CMP0043)
-  cmake_policy(SET CMP0043 OLD)
-endif()
+# Find CGAL
+find_package(CGAL REQUIRED COMPONENTS Core)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-add_definitions(-std=c++11)
+if(CGAL_FOUND)
+    # Common sources
+    set(DEPENDENCIES
+        src/rhomboid.cpp
+        src/utils.cpp
+    )
 
-find_package(CGAL COMPONENTS)
-include(${CGAL_USE_FILE}) 
+    # Main executable
+    add_executable(main src/main.cpp ${DEPENDENCIES})
+    target_link_libraries(main CGAL::CGAL CGAL::CGAL_Core)
 
-if ( CGAL_FOUND )
+    # 2D tests
+    add_executable(tests_2d src/tests_2d.cpp ${DEPENDENCIES})
+    target_link_libraries(tests_2d CGAL::CGAL CGAL::CGAL_Core)
+    target_include_directories(tests_2d PRIVATE ${CMAKE_SOURCE_DIR})
 
-set(DEPENDENCIES src/rhomboid.cpp src/utils.cpp)
-
-add_executable(main src/main.cpp ${DEPENDENCIES})
-add_executable(tests_2d src/tests_2d.cpp ${DEPENDENCIES})
-add_executable(tests_3d src/tests_3d.cpp ${DEPENDENCIES})
-add_to_cached_list( CGAL_EXECUTABLE_TARGETS main)
-target_link_libraries( main ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES})
+    # 3D tests
+    add_executable(tests_3d src/tests_3d.cpp ${DEPENDENCIES})
+    target_link_libraries(tests_3d CGAL::CGAL CGAL::CGAL_Core)
+    target_include_directories(tests_3d PRIVATE ${CMAKE_SOURCE_DIR})
 
 else()
-
-  message(STATUS "NOTICE: This demo requires CGAL, and will not be compiled.")
-
+    message(STATUS "NOTICE: This demo requires CGAL and will not be compiled.")
 endif()
+

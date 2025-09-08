@@ -5,6 +5,7 @@ set -e  # Exit immediately if a command fails
 BUILD_DIR="build"
 MAIN_EXEC="main"
 OUTPUT_DIR="."
+OUTPUT_EXEC="orderk"
 
 # 1. Create and enter build directory
 if [ -d "$BUILD_DIR" ]; then
@@ -29,7 +30,8 @@ done
 
 # 5. Copy main out and clean everything else
 if [ -f "$MAIN_EXEC" ]; then
-    cp "$MAIN_EXEC" .. 
+    cp "$MAIN_EXEC" ../"$OUTPUT_EXEC" 
+    echo "Build successful! Executable is at $OUTPUT_EXEC"
 fi
 
 cd ..

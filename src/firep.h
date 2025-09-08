@@ -4,10 +4,17 @@
 
 // Contributed by Michael Kerber
 template<typename FT>
-void bifiltration_to_firep(std::vector<BifiltrationCell<FT>> bf, int dim, std::ofstream& ofile) {
-    ofile << "firep" << std::endl;
-    ofile << "Critical value (r)" << std::endl;
-    ofile << "Order (k)" << std::endl;
+void bifiltration_to_firep(std::vector<BifiltrationCell<FT>> bf, int dim, std::ofstream& ofile, bool as_scc = false) {
+    if(as_scc) {
+        // scc2020 format specifications: https://bitbucket.org/mkerber/chain_complex_format/
+        ofile << "scc2020" << std::endl;
+        ofile << "2" << std::endl;
+
+    } else {
+        ofile << "firep" << std::endl;
+        ofile << "Critical value (r)" << std::endl;
+        ofile << "Order (k)" << std::endl;
+    }
     long no_dim_minus_1=0, no_dim=0, no_dim_plus_1=0;
     std::map<int,int> new_id_d_minus_1;
     std::map<int,int> new_id_d;

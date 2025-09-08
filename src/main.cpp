@@ -79,6 +79,8 @@ void print_usage() {
     std::cout << "  bslices: boundary matrix for each slice filtration." << std::endl;
     std::cout << "  firep: free implicit representation of bifi." << std::endl;
     std::cout << "  ufirep: free implicit representation of ubifi." << std::endl;
+    std::cout << "  scc: same as firep but in the scc2020 format." << std::endl;
+    std::cout << "  uscc: same as ufirep but in the scc2020 format." << std::endl;
 }
 
 
@@ -195,6 +197,12 @@ void process_request(std::ifstream& pfile, std::ofstream& ofile, int max_order, 
     } else if (otype == "firep") {
         auto bf = rt.get_bifiltration();
         bifiltration_to_firep<FT>(bf, repr_dimension, ofile);
+    } else if (otype == "uscc") {
+        auto bf = rt.get_unsliced_bifiltration();
+        bifiltration_to_firep<FT>(bf, repr_dimension, ofile, true);
+    } else if (otype == "scc") {
+        auto bf = rt.get_bifiltration();
+        bifiltration_to_firep<FT>(bf, repr_dimension, ofile, true);
     } else if (otype == "bifi") { // "bifi" is the default
         auto bf = rt.get_bifiltration();
         std::sort(bf.begin(), bf.end());

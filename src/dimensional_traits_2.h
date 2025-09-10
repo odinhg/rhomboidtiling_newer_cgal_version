@@ -35,9 +35,9 @@ class DimensionalTraits_2 {
     static Sphere
     circumsphere(const CVertex& pids, const std::vector<Point>& bpoints) {
         if (pids.size() == 3) {
-            return Sphere(bpoints[pids[0]], bpoints[pids[1]], bpoints[pids[2]]);
+            return Sphere(bpoints[pids[0]], bpoints[pids[1]], bpoints[pids[2]]); 
         } else if (pids.size() == 2) {
-            return Sphere(bpoints[pids[0]], bpoints[pids[1]]);
+            return Sphere(bpoints[pids[0]], bpoints[pids[1]]); 
         } else {
             // return std::optional<Sphere>() or an exception in the future.
             // Currently there are no cases where this should happen.
@@ -45,7 +45,7 @@ class DimensionalTraits_2 {
         }
     }
 
-    // Make a point with the given coordinates
+    // Make a point with the given coordinates.
     static Point
     make_point(const std::vector<double>& coords) {
         if (coords.size() == 2) {
@@ -56,4 +56,3 @@ class DimensionalTraits_2 {
         }
     }
 };
-

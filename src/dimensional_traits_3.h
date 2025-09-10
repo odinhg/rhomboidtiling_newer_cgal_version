@@ -26,21 +26,20 @@ class DimensionalTraits_3 {
     using Regular_triangulation = CGAL::Regular_triangulation_3<K, Tds>;
     using Regular_triangulation_finite_cells_iterator = typename Regular_triangulation::Finite_cells_iterator;
 
-    static Regular_triangulation_finite_cells_iterator 
+    static Regular_triangulation_finite_cells_iterator
     get_finite_cells_begin(const Regular_triangulation& T) {return T.finite_cells_begin();}
     static Regular_triangulation_finite_cells_iterator
     get_finite_cells_end(const Regular_triangulation& T) {return T.finite_cells_end();}
-    
+
     // Get circumsphere of the points with the given indices.
     static Sphere
     circumsphere(const CVertex& pids, const std::vector<Point>& bpoints) {
         if (pids.size() == 4) {
-            return Sphere(bpoints[pids[0]], bpoints[pids[1]],
-                          bpoints[pids[2]], bpoints[pids[3]]);
+            return Sphere(bpoints[pids[0]], bpoints[pids[1]], bpoints[pids[2]], bpoints[pids[3]]);
         } else if (pids.size() == 3) {
-            return Sphere(bpoints[pids[0]], bpoints[pids[1]], bpoints[pids[2]]);
+            return Sphere(bpoints[pids[0]], bpoints[pids[1]], bpoints[pids[2]]); 
         } else if (pids.size() == 2) {
-            return Sphere(bpoints[pids[0]], bpoints[pids[1]]);
+            return Sphere(bpoints[pids[0]], bpoints[pids[1]]); 
         } else {
             // return std::optional<Sphere>() or an exception in the future.
             // Currently there are no cases where this should happen.
@@ -59,4 +58,3 @@ class DimensionalTraits_3 {
         }
     }
 };
-

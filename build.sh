@@ -3,7 +3,7 @@ set -e  # Exit immediately if a command fails
 
 # Names
 BUILD_DIR="build"
-MAIN_EXEC="main"
+MAIN_EXEC="orderk"
 OUTPUT_DIR="."
 OUTPUT_EXEC="orderk"
 

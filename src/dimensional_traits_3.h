@@ -24,16 +24,16 @@ public:
     using Cb  = CGAL::Regular_triangulation_cell_base_3<K>;
     using Tds = CGAL::Triangulation_data_structure_3<Vb, Cb>;
     using Regular_triangulation = CGAL::Regular_triangulation_3<K, Tds>;
+    using Regular_triangulation_finite_cells_iterator = typename Regular_triangulation::Finite_cells_iterator;
 
-    // Iterator helpers: use auto so we don't need typedefs
-    static auto get_finite_cells_begin(const Regular_triangulation& T) {
+    static Regular_triangulation_finite_cells_iterator get_finite_cells_begin(const Regular_triangulation& T) {
         return T.finite_cells_begin();
     }
-    static auto get_finite_cells_end(const Regular_triangulation& T) {
+    static Regular_triangulation_finite_cells_iterator get_finite_cells_end(const Regular_triangulation& T) {
         return T.finite_cells_end();
     }
-
-    // Circumsphere of points with given indices
+    
+    // Get circumsphere of the points with the given indices.
     static Sphere circumsphere(const CVertex& pids,
                                const std::vector<Point>& bpoints) {
         if (pids.size() == 4) {
@@ -44,15 +44,18 @@ public:
         } else if (pids.size() == 2) {
             return Sphere(bpoints[pids[0]], bpoints[pids[1]]);
         } else {
+	    // return std::optional<Sphere>() or an exception in the future.
+            // Currently there are no cases where this should happen.
             return Sphere(Point(CGAL::ORIGIN));
         }
     }
 
-    // Make a point with the given coordinates
+    // Make a point with the given coordinates.
     static Point make_point(const std::vector<double>& coords) {
         if (coords.size() == 3) {
             return Point(coords[0], coords[1], coords[2]);
         } else {
+	    // return std::optional<Point>() or an exception in the future.
             return Point(CGAL::ORIGIN);
         }
     }

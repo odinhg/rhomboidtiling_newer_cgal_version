@@ -45,7 +45,8 @@ RhomboidTiling<Dt>::RhomboidTiling(
   Reg_Tri T(points.begin(), points.end());
 
   RhomboidMap rhomboids0d = RhomboidMap();
-  for (auto cit = Dt::get_finite_cells_begin(T); cit != Dt::get_finite_cells_end(T); ++cit) {
+  typename Dt::Regular_triangulation_finite_cells_iterator cit;
+  for (cit = Dt::get_finite_cells_begin(T); cit != Dt::get_finite_cells_end(T); ++cit) {
     Rhomboid rho;
     for (int i = 0; i <= dimension; ++i) {
       uint32_t vindex = cit->vertex(i)->info();
@@ -119,7 +120,8 @@ RhomboidTiling<Dt>::RhomboidTiling(
     // Step 2.2.2: Get weighted Delaunay triangulation and indentify its
     // first-generation cells.
     Reg_Tri T(new_points.begin(), new_points.end());
-    for (auto cit = Dt::get_finite_cells_begin(T); cit != Dt::get_finite_cells_end(T); ++cit) {
+    typename Dt::Regular_triangulation_finite_cells_iterator cit;
+    for (cit = Dt::get_finite_cells_begin(T); cit != Dt::get_finite_cells_end(T); ++cit) {
       // TODO: Use pointers here instead of copies?
       CCell vertices;
 

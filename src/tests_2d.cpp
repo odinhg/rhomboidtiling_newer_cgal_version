@@ -16,6 +16,7 @@
 #include "combinatorial_bifiltration_cell.h"
 
 #define CATCH_CONFIG_MAIN
+#define CATCH_CONFIG_NO_POSIX_SIGNALS // Fix undefined constant MINSIGSTKSZ from glibc
 #include "catch2/catch.hpp"
 
 using namespace Catch;

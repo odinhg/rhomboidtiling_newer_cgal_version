@@ -17,8 +17,8 @@ if(CGAL_FOUND)
     )
 
     # Main executable
-    add_executable(main src/main.cpp ${DEPENDENCIES})
-    target_link_libraries(main CGAL::CGAL CGAL::CGAL_Core)
+    add_executable(orderk src/main.cpp ${DEPENDENCIES})
+    target_link_libraries(orderk CGAL::CGAL CGAL::CGAL_Core)
 
     # 2D tests
     add_executable(tests_2d src/tests_2d.cpp ${DEPENDENCIES})

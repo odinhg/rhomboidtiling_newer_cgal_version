@@ -8,7 +8,7 @@
 
 template<class K>
 class DimensionalTraits_2 {
-public:
+  public:
     static const int dimension = 2;
 
     using Point  = typename K::Point_2;
@@ -26,16 +26,14 @@ public:
     using Regular_triangulation = CGAL::Regular_triangulation_2<K, Tds>;
     using Regular_triangulation_finite_cells_iterator = typename Regular_triangulation::Finite_faces_iterator;
 
-    static Regular_triangulation_finite_cells_iterator get_finite_cells_begin(const Regular_triangulation& T) {
-        return T.finite_faces_begin();
-    }
-    static Regular_triangulation_finite_cells_iterator get_finite_cells_end(const Regular_triangulation& T) {
-        return T.finite_faces_end();
-    }
+    static Regular_triangulation_finite_cells_iterator
+    get_finite_cells_begin(const Regular_triangulation& T) {return T.finite_faces_begin();}
+    static Regular_triangulation_finite_cells_iterator
+    get_finite_cells_end(const Regular_triangulation& T) {return T.finite_faces_end();}
 
     // Get circumsphere of the points with the given indices.
-    static Sphere circumsphere(const CVertex& pids,
-                               const std::vector<Point>& bpoints) {
+    static Sphere
+    circumsphere(const CVertex& pids, const std::vector<Point>& bpoints) {
         if (pids.size() == 3) {
             return Sphere(bpoints[pids[0]], bpoints[pids[1]], bpoints[pids[2]]);
         } else if (pids.size() == 2) {
@@ -48,7 +46,8 @@ public:
     }
 
     // Make a point with the given coordinates
-    static Point make_point(const std::vector<double>& coords) {
+    static Point
+    make_point(const std::vector<double>& coords) {
         if (coords.size() == 2) {
             return Point(coords[0], coords[1]);
         } else {
